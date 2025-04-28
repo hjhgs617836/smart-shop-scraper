@@ -1,0 +1,11 @@
+{
+  "name": "smart-shop-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^19.0.0"
+  },
+  "scripts": {
+    "scrape": "node index.js"
+  }
+}
