@@ -1,0 +1,33 @@
+name: Scrape Products
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # ⏰ كل 6 ساعات
+  workflow_dispatch:        # 📌 زر تشغيل يدوي
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper
+        run: npm run scrape
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add products.json
+          git commit -m "Update products.json [skip ci]" || echo "No changes"
+          git push
